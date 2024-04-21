@@ -14,4 +14,4 @@
 * [etcd](https://github.com/etcd-io/etcd) v3.4.x
 
 ## Лабараторка
-* [Предварительные условия] (docs/01-prerequisites.md)
+* [Предварительные условия](docs/01-prerequisites.md)
