@@ -43,3 +43,50 @@ while read IP FQDN HOST SUBNET; do
 ssh-copy-id root@${IP}
 done < machine.txt
 ~~~
+Далее для проверки мы можем использовать следуюшию команду
+~~~
+while read IP FQDN HOST SUBNET; do
+ssh -n root@${IP} uname -o -m
+done < machina.txt
+~~~
+В ответе мы должны получить 
+~~~
+aarch64 GNU/Linux
+aarch64 GNU/Linux
+aarch64 GNU/Linux
+aarch64 GNU/Linux
+aarch64 GNU/Linux
+aarch64 GNU/Linux
+aarch64 GNU/Linux
+~~~
+# Имя хоста
+В данной секции мы переименуем имя хостов `server`, `node-1`, `node-2`, `node-3`, `work-1`, `work-2` и `work-3`.
+Имя хоста будет использоваться при выполнении команд из Jumpbox на каждую машину.
+Имя хоста также играет важную роль в кластере.
+Вместо того, чтобы клиенты Kubernetes использовали IP-адрес для отправки команд серверу API Kubernetes, эти клиенты будут использовать вместо этого имя хоста сервера. Имена хостов также используются каждой рабочей машиной.
+Данные команды мы будем использоваться с сервера админимстрирование
+Ранее мы настраивали текстовый файл `machines.txt` 
+~~~
+while read IP FQDN HOST SUBNET; do
+CMD="sed -i 's/^127.0.1.1.*/127.0.1.1/t${FQDN} ${HOST}/' /etc/hosts"
+ssh -n root@${IP} "$CMD"
+ssh -n root@${IP} hostnamectl hostname ${HOST}
+done < machines.txt
+~~~
+Проверяем то что все правильно применилось 
+~~~
+while read IP FQDN HOST SUBNET; do
+ssh -n root@${IP} hostname --fqdn
+done < machines.txt
+~~~
+Должны получить ответь 
+~~~
+server.kubernetes.local
+node-1.kubernetes.local
+node-2.kubernetes.local
+node-3.kubernetes.local
+work-1.kubernetes.local
+work-2.kubernetes.local
+work-3.kubernetes.local
+~~~
+
