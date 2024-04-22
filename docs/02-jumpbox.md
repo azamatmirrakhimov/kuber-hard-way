@@ -24,3 +24,28 @@ sudo mv cfssljson_linux-amd64 /usr/local/bin/cfssljson
 ~~~
 cfssl version
 ~~~
+
+# Копируем данные с репозитория
+~~~
+git clone --depth 1 \
+  https://github.com/azamatmirrakhimov/kuber-hard-way.git
+~~~
+переходим в директорию
+~~~
+cd kubet-hard-way
+~~~
+Скачиваем зависимости
+~~~
+mkdir downloads
+~~~
+Проверяем ссылку скачивание командой cat 
+~~~
+cat download.txt
+~~~
+Теперь скачиваем все зависимости с помощю нашего текстового файла downloads.txt с помощю команды wget
+~~~
+wget -q --show-progress \
+--https-only \
+--timestamping \
+-P downlods \
+-i downlod.txt
