@@ -17,3 +17,29 @@ XXX.XXX.XXX.XXX work-1.kubernetes.local work-1 10.200.0.0/24
 XXX.XXX.XXX.XXX work-2.kubernetes.local work-2 10.200.1.0/24
 XXX.XXX.XXX.XXX work-3.kubernetes.local work-3 10.200.2.0/24
 ~~~
+# Настройка SSH доступов
+Нужно настроить для каждого сервера ssh доступ для пользователя `root` из нашего текстого файла `machine.txt`
+
+# Разрешить пользователю root SSH доступ
+Так как по умолчанию на серверах Debian по умолчанию данный доступ запрещен нужно будет его включить на каждом сервере.
+Для этого нам надо изменить конфигурационный файл который находиться в директории `/etc/ssh/sshd_config`
+~~~
+sed -i \
+'s/^#PermitRootLogin.*/PermitRootLogin yes/' \
+/etc/ssh/sshd_config
+~~~
+Теперь нам только осталось перезапусть службу sshd для того что бы изменение применилсь 
+~~~
+systemctl restart sshd
+~~~
+# Генерация и доставка SSH ключа
+Генерация SSH ключа
+~~~
+ssh-keygen
+~~~
+Копирование SSH ключа на сервера
+~~~
+while read IP FQDN HOST SUBNET; do
+ssh-copy-id root@${IP}
+done < machine.txt
+~~~
