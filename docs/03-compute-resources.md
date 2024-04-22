@@ -89,4 +89,69 @@ work-1.kubernetes.local
 work-2.kubernetes.local
 work-3.kubernetes.local
 ~~~
+# DNS
+В данной секции мы настроим имя хостов на сервере администрирование а потом скопируем и настроем на остальных серверах
+Создадим новый файл под названием `hosts`, И добавим туда заголовок.
+~~~
+echo "" > hosts
+echo "Kubet The Hard Way" >> hosts
+~~~
+Теперь скопируем наши данные с нашего текстого файла `machines.txt`, в наш новосозданный файл `hosts`
+~~~
+while read IP FQDN HOST SUBNET; do
+ENTRY="${IP} ${FQDN} ${HOST}
+echo $ENTRY >> hosts
+done < machines.txt
+~~~
+Проверям что все скопировалось 
+~~~
+cat hosts
+~~~
+Должен быть ответ 
+~~~
+# Kubernetes The Hard Way
+172.31.31.83 server.kubernetes.local server
+172.31.22.129 node-1.kubernetes.local node-1
+172.31.24.219 node-2.kubernetes.local node-2
+172.31.28.247 node-3.kubernetes.local node-3
+172.31.17.24 work-1.kubernetes.local work-1
+172.31.29.109 work-2.kubernetes.local work-2
+172.31.17.34 work-3.kubernetes.local work-3
+172.31.31.83 server.kubernetes.local server
+172.31.22.129 node-1.kubernetes.local node-1
+172.31.24.219 node-2.kubernetes.local node-2
+172.31.28.247 node-3.kubernetes.local node-3
+172.31.17.24 work-1.kubernetes.local work-1
+172.31.29.109 work-2.kubernetes.local work-2
+172.31.17.34 work-3.kubernetes.local work-3
+~~~
+# Применяем на локальной машине 
+Теперь нам надо скопировать с файла `hosts` в `/etc/hosts` 
+~~~
+cat hosts >> /etc/hosts
+~~~
+Проверяем все ли правильно
+~~~
+127.0.0.1       localhost
+127.0.1.1       jumpbox
 
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+# Kubernetes The Hard Way
+XXX.XXX.XXX.XXX server.kubernetes.local server
+XXX.XXX.XXX.XXX node-0.kubernetes.local node-0
+XXX.XXX.XXX.XXX node-1.kubernetes.local node-1
+~~~
+К этому моменту сервера должны быть настроеные так что бы могли общаться по SSH
+# Добавляем DNS  записи на удаленные сервера
+~~~
+while read IP FQDN HOST SUBNET; do
+scp hosts root@${IP}:~/
+ssh -n root@${HOST} "cat hosts >> /etc/hosts"
+done < machines.txt
+~~~
+
+Далее: [Создание сертификатов](04-certificate-authority.md)
