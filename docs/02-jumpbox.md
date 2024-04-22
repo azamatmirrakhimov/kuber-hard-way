@@ -49,3 +49,27 @@ wget -q --show-progress \
 --timestamping \
 -P downlods \
 -i downlod.txt
+~~~
+Проверям то что все скачалось должно быть 11 файлов
+~~~
+ls -loh downloads
+~~~
+Устанавливаем kubectl
+~~~
+{
+  chmod +x downloads/kubectl
+  cp downloads/kubectl /usr/local/bin/
+}
+~~~
+После данной команды можно проверить
+~~~
+kubectl version --client
+~~~
+В ответе должны получить 
+~~~
+text
+Client Version: v1.28.3
+Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
+~~~
+
+
