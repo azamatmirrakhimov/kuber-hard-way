@@ -8,3 +8,12 @@ IPV4_ADDRESS FQDN HOSTNAME POD_SUBNET
 Каждая колонка хранить в себе информацию IP address `IPV4_ADDRESS`, полное доменное имя `FQDN (fully qualified domain name)`, имя хоста `HOSTNAME`, а так же IP subnet `POD_SUBNET`. Kubernetes назначает один IP-адрес каждому «поду», а «POD_SUBNET» представляет собой уникальный диапазон IP-адресов, назначенный для этого каждой машине в кластере.
 
 Вот пример базы данных компьютеров, аналогичный той, которую мы будем использовать. Каждая машина доступна друг от друга и из «admin».
+~~~
+XXX.XXX.XXX.XXX server.kubernetes.local server  
+XXX.XXX.XXX.XXX node-1.kubernetes.local node-1 10.200.0.0/24
+XXX.XXX.XXX.XXX node-2.kubernetes.local node-2 10.200.1.0/24
+XXX.XXX.XXX.XXX node-3.kubernetes.local node-3 10.200.2.0/24
+XXX.XXX.XXX.XXX work-1.kubernetes.local work-1 10.200.0.0/24
+XXX.XXX.XXX.XXX work-2.kubernetes.local work-2 10.200.1.0/24
+XXX.XXX.XXX.XXX work-3.kubernetes.local work-3 10.200.2.0/24
+~~~
