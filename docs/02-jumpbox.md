@@ -71,5 +71,4 @@ text
 Client Version: v1.28.3
 Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
 ~~~
-
-
+Далее: [Предоставление ресурсов](03-compute-resources.md)
