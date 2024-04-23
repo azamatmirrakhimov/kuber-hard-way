@@ -172,5 +172,32 @@ RestartSec=5
 WantedBy=multi-user.target
 EOF
 ~~~
+Перезапускаем демон
+~~~
+systemctl daemon-reload
+~~~
+~~~
+systemctl enable etcd
+~~~
+~~~
+systemctl start etcd
+~~~
+~~~
+systemctl status etcd
+~~~
+Проверяем то что все работат 
+~~~
+ETCDCTL_API=3 etcdctl member list \
+  --endpoints=https://127.0.0.1:2379 \
+  --cacert=/etc/etcd/ca.pem \
+  --cert=/etc/etcd/kubernetes.pem \
+  --key=/etc/etcd/kubernetes-key.pem
+~~~
+В ответе должны получить
+~~~
+ad30d1b4177b2333, started, node-3, https://172.31.17.121:2380, https://172.31.17.121:2379, false
+b1fd7172d09ca898, started, node-2, https://172.31.24.235:2380, https://172.31.24.235:2379, false
+b225ba2fedf4c4a1, started, node-1, https://172.31.18.85:2380, https://172.31.18.85:2379, false
+~~~
 
 
