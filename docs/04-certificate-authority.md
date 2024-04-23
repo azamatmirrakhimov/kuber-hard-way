@@ -3,7 +3,7 @@
 1 `ca-config.json`  `ca-csr.json`  `ca-key.pem`  `ca.csr`  `ca.pem`
 И сертификаты kuber
 2 `kubernetes-csr.json`  `kubernetes-key.pem`  `kubernetes.csr`  `kubernetes.pem`
-1 Генерация CA
+### 1 Генерация CA
 ~~~
 {
 
