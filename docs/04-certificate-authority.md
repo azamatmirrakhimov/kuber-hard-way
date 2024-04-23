@@ -106,5 +106,71 @@ scp etcd-v3.4.27-linux-amd64.tar.gz root@node-2:~/
 ~~~
 scp etcd-v3.4.27-linux-amd64.tar.gz root@node-3:~/
 ~~~
+Теперь на каждом сервере `node-1` `node-2` и `node-3` нужно будет сделать одни и те же команды
+~~~
+tar -xvf etcd-v3.4.27-linux-amd64.tar.gz
+~~~
+~~~
+mv etcd-v3.4.27-linux-amd64/etcd* /usr/local/bin/
+~~~
+~~~
+mkdir -p /etc/etcd /var/lib/etcd
+~~~
+~~~
+cp ca.pem kubernetes-key.pem kubernetes.pem /etc/etcd/
+~~~
+Далее надо создать пару переменных что бы создать всеми нами любимые конфиг файлы
+~~~
+ETCD_NAME=<cloud server hostname>
+~~~
+~~~
+INTERNAL_IP=<servet ip>
+~~~
+~~~
+INITIAL_CLUSTER=<controller 1 hostname>=https://<controller 1 private ip>:2380,<controller 2 hostname>=https://<controller 2 private ip>:2380
+~~~
+Проверяем что все правильно
+~~~
+echo $ETCD_NAME
+~~~
+~~~
+echo $INTERNAL_IP
+~~~
+~~~
+echo $INITIAL_CLUSTER
+~~~
+А теперь создаем конфиг файл
+~~~
+cat << EOF | sudo tee /etc/systemd/system/etcd.service
+[Unit]
+Description=etcd
+Documentation=https://github.com/coreos
+
+[Service]
+ExecStart=/usr/local/bin/etcd \\
+  --name ${ETCD_NAME} \\
+  --cert-file=/etc/etcd/kubernetes.pem \\
+  --key-file=/etc/etcd/kubernetes-key.pem \\
+  --peer-cert-file=/etc/etcd/kubernetes.pem \\
+  --peer-key-file=/etc/etcd/kubernetes-key.pem \\
+  --trusted-ca-file=/etc/etcd/ca.pem \\
+  --peer-trusted-ca-file=/etc/etcd/ca.pem \\
+  --peer-client-cert-auth \\
+  --client-cert-auth \\
+  --initial-advertise-peer-urls https://${INTERNAL_IP}:2380 \\
+  --listen-peer-urls https://${INTERNAL_IP}:2380 \\
+  --listen-client-urls https://${INTERNAL_IP}:2379,https://127.0.0.1:2379 \\
+  --advertise-client-urls https://${INTERNAL_IP}:2379 \\
+  --initial-cluster-token etcd-cluster-0 \\
+  --initial-cluster ${INITIAL_CLUSTER} \\
+  --initial-cluster-state new \\
+  --data-dir=/var/lib/etcd
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+~~~
 
 
