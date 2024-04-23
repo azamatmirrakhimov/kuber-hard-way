@@ -47,8 +47,8 @@ cat download.txt
 wget -q --show-progress \
 --https-only \
 --timestamping \
--P downlods \
--i downlod.txt
+-P downloads \
+-i download.txt
 ~~~
 Проверям то что все скачалось должно быть 11 файлов
 ~~~
