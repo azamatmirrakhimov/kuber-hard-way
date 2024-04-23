@@ -86,3 +86,25 @@ cfssl gencert \
 
 }
 ~~~
+Копируем сертификаты на сервера
+~~~
+scp ca.pem kubernetes-key.pem  kubernetes.pem root@node-1:~/
+~~~
+~~~
+ scp ca.pem kubernetes-key.pem  kubernetes.pem root@node-2:~/
+~~~
+~~~
+scp ca.pem kubernetes-key.pem  kubernetes.pem root@node-3:~/
+~~~
+Копируем etcd
+~~~
+scp etcd-v3.4.27-linux-amd64.tar.gz root@node-1:~/
+~~~
+~~~
+scp etcd-v3.4.27-linux-amd64.tar.gz root@node-1:~/
+~~~
+~~~
+scp etcd-v3.4.27-linux-amd64.tar.gz root@node-3:~/
+~~~
+
+
