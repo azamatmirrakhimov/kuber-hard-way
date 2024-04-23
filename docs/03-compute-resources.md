@@ -99,7 +99,7 @@ echo "Kubet The Hard Way" >> hosts
 Теперь скопируем наши данные с нашего текстого файла `machines.txt`, в наш новосозданный файл `hosts`
 ~~~
 while read IP FQDN HOST SUBNET; do
-ENTRY="${IP} ${FQDN} ${HOST}
+ENTRY="${IP} ${FQDN} ${HOST}"
 echo $ENTRY >> hosts
 done < machines.txt
 ~~~
