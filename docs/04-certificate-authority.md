@@ -101,7 +101,7 @@ scp ca.pem kubernetes-key.pem  kubernetes.pem root@node-3:~/
 scp etcd-v3.4.27-linux-amd64.tar.gz root@node-1:~/
 ~~~
 ~~~
-scp etcd-v3.4.27-linux-amd64.tar.gz root@node-1:~/
+scp etcd-v3.4.27-linux-amd64.tar.gz root@node-2:~/
 ~~~
 ~~~
 scp etcd-v3.4.27-linux-amd64.tar.gz root@node-3:~/
