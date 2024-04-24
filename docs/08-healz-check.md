@@ -80,3 +80,4 @@ subjects:
 EOF
 ~~~
 
+Далее: [LoadBalancer](09-loadbalancer.md)
