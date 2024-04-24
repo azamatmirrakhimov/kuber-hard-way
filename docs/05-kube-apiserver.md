@@ -97,6 +97,20 @@ cp ca.pem ca-key.pem kubernetes-key.pem kubernetes.pem \
   encryption-config.yaml /var/lib/kubernetes/
 ~~~
 Теперь нам надо только создать сервис файл что бы мы могли его запускать с помощю стандартной команды linux
+Но перед этим нам надо сделать несколько переменных
+~~~
+INTERNAL_IP=private-ip
+~~~
+~~~
+CONTROLLER1_IP=172.31.18.85
+~~~
+~~~
+CONTROLLER2_IP=172.31.24.235
+~~~
+~~~
+CONTROLLER3_IP=172.31.17.121
+~~~
+Создание сервисного файла
 ~~~
 cat << EOF | sudo tee /etc/systemd/system/kube-apiserver.service
 [Unit]
