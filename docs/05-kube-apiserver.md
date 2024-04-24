@@ -37,3 +37,7 @@ cfssl gencert \
 ~~~
 service-account-csr.json service-account-key.pem service-account.csr service-account.pem
 ~~~
+Теперь нам осталось создать `service-account.key`
+~~~
+openssl genrsa -out service-account.key 2048
+~~~
