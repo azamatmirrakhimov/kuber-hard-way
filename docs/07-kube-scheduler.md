@@ -1,5 +1,59 @@
 #
+### Admin Client certificate:
+~~~
+{
 
+cat > admin-csr.json << EOF
+{
+  "CN": "admin",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "US",
+      "L": "Portland",
+      "O": "system:masters",
+      "OU": "Kubernetes The Hard Way",
+      "ST": "Oregon"
+    }
+  ]
+}
+EOF
+
+cfssl gencert \
+  -ca=ca.pem \
+  -ca-key=ca-key.pem \
+  -config=ca-config.json \
+  -profile=kubernetes \
+admin-csr.json | cfssljson -bare admin
+
+}
+~~~
+### Generate an admin kubeconfig:
+~~~
+{
+  kubectl config set-cluster kubernetes-the-hard-way \
+    --certificate-authority=ca.pem \
+    --embed-certs=true \
+    --server=https://127.0.0.1:6443 \
+    --kubeconfig=admin.kubeconfig
+
+  kubectl config set-credentials admin \
+    --client-certificate=admin.pem \
+    --client-key=admin-key.pem \
+    --embed-certs=true \
+    --kubeconfig=admin.kubeconfig
+
+  kubectl config set-context default \
+    --cluster=kubernetes-the-hard-way \
+    --user=admin \
+    --kubeconfig=admin.kubeconfig
+
+  kubectl config use-context default --kubeconfig=admin.kubeconfig
+}
+~~~
 
 ~~~
 {
@@ -107,6 +161,9 @@ systemctl start kube-scheduler
 Проверяем статус
 ~~~
 systemctl status kube-scheduler
+~~~
+~~~
+kubectl get componentstatuses --kubeconfig admin.kubeconfig
 ~~~
 Если будут ошибки удобно проверяем и перенастроиваем
 ~~~
