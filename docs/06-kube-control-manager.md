@@ -33,7 +33,7 @@ cfssl gencert \
 
 }
 ~~~
-
+2. Создаем сам `kube-controller-manager.kubeconfig`
 ~~~
 {
   kubectl config set-cluster kubernetes-the-hard-way \
