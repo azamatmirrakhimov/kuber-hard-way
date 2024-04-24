@@ -199,5 +199,4 @@ ad30d1b4177b2333, started, node-3, https://172.31.17.121:2380, https://172.31.17
 b1fd7172d09ca898, started, node-2, https://172.31.24.235:2380, https://172.31.24.235:2379, false
 b225ba2fedf4c4a1, started, node-1, https://172.31.18.85:2380, https://172.31.18.85:2379, false
 ~~~
-
-
+Далее: [Создание кластера Kube API](05-kube-apiserver.md)
