@@ -178,3 +178,5 @@ systemctl status kube-apiserver
 ~~~
 journalctl -u kube-apiserver.service --no-pager --reverse | head -n 20
 ~~~
+
+Далее: [Создание кластера Kube API](06-kube-control-manager.md)
