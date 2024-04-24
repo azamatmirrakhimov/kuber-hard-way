@@ -17,13 +17,13 @@ include /etc/nginx/tcpconf.d/*;
 ~~~
 # Set up some environment variables for the lead balancer config file:
 ~~~
-CONTROLLER1_IP=<controller 0 private ip>
+CONTROLLER1_IP=172.31.18.85
 ~~~
 ~~~
-CONTROLLER2_IP=<controller 1 private ip>
+CONTROLLER2_IP=172.31.24.235
 ~~~
 ~~~
-CONTROLLER3_IP=<controller 1 private ip>
+CONTROLLER3_IP=172.31.17.121
 ~~~
 # Create the load balancer nginx config file:
 ~~~
