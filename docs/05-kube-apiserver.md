@@ -162,15 +162,19 @@ EOF
 ~~~
 systemctl daemon-reload
 ~~~
+Добавляем кубе апи в автозапуск
 ~~~
 systemctl enable kube-apiserver
 ~~~
+Старт сервиса
 ~~~
 systemctl start kube-apiserver
 ~~~
+Проверка статуса сервиса
 ~~~
 systemctl status kube-apiserver
 ~~~
+Подсказка как ловить ошибки
 ~~~
 journalctl -u kube-apiserver.service --no-pager --reverse | head -n 20
 ~~~
