@@ -41,3 +41,35 @@ service-account-csr.json service-account-key.pem service-account.csr service-acc
 ~~~
 openssl genrsa -out service-account.key 2048
 ~~~
+Осталось создать метод шифрование `encryption-config.yaml`
+~~~
+ENCRYPTION_KEY=$(head -c 32 /dev/urandom | base64)
+
+cat > encryption-config.yaml << EOF
+kind: EncryptionConfig
+apiVersion: v1
+resources:
+  - resources:
+      - secrets
+    providers:
+      - aescbc:
+          keys:
+            - name: key1
+              secret: ${ENCRYPTION_KEY}
+      - identity: {}
+EOF
+~~~
+Теперь нам надо доставить `bin` и `сертификаты` на наши сервера
+начинаем с бинарных файлов
+~~~
+scp kube-apiserver kube-controller-manager kube-scheduler kubectl node-1:~/
+~~~
+И так же на два остальных сервера
+Копируем сертификаты
+~~~
+scp ca.pem ca-key.pem kubernetes-key.pem kubernetes.pem \
+  service-account-key.pem service-account.pem service-account.key \
+  encryption-config.yaml node-1:~/
+~~~
+Те же действия для двух остальных серверов
+
