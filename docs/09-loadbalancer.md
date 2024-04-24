@@ -8,6 +8,7 @@ sudo systemctl enable nginx
 ~~~
 sudo mkdir -p /etc/nginx/tcpconf.d
 ~~~
+~~~
 sudo vi /etc/nginx/nginx.conf
 ~~~
 # Add the following to the end of nginx.conf:
