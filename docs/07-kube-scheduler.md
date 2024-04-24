@@ -170,4 +170,4 @@ kubectl get componentstatuses --kubeconfig admin.kubeconfig
 journalctl -u kube-scheduler.service --no-pager --reverse | head -n 20
 ~~~
 
-Далее: [Создание кластера Kube Scheduler](07-kube-scheduler.md)
+Далее: [HTTP healz check](08-healz-check.md)
