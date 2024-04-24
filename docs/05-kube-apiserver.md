@@ -157,4 +157,20 @@ WantedBy=multi-user.target
 EOF
 ~~~
 
+Теперь нам надо все это запустить 
 
+~~~
+systemctl daemon-reload
+~~~
+~~~
+systemctl enable kube-apiserver
+~~~
+~~~
+systemctl start kube-apiserver
+~~~
+~~~
+systemctl status kube-apiserver
+~~~
+~~~
+journalctl -u kube-apiserver.service --no-pager --reverse | head -n 20
+~~~
