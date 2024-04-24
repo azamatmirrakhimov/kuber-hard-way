@@ -1,6 +1,39 @@
 # Настройки кубе контроллер манагера
 
 1. Нам нужно создать кубе конфиг файл
+Но для этого сначала сгенирирум сертификаты `kube-controller-manager.pem`
+~~~
+{
+
+cat > kube-controller-manager-csr.json << EOF
+{
+  "CN": "system:kube-controller-manager",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "US",
+      "L": "Portland",
+      "O": "system:kube-controller-manager",
+      "OU": "Kubernetes The Hard Way",
+      "ST": "Oregon"
+    }
+  ]
+}
+EOF
+
+cfssl gencert \
+  -ca=ca.pem \
+  -ca-key=ca-key.pem \
+  -config=ca-config.json \
+  -profile=kubernetes \
+  kube-controller-manager-csr.json | cfssljson -bare kube-controller-manager
+
+}
+~~~
+
 ~~~
 {
   kubectl config set-cluster kubernetes-the-hard-way \
@@ -80,3 +113,5 @@ systemctl status kube-controller-manager
 ~~~
 journalctl -u kube-controller-manager.service --no-pager --reverse | head -n 20
 ~~~
+
+Далее: [Создание кластера Kube Scheduler](07-kube-scheduler.md)
