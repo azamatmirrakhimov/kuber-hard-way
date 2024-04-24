@@ -63,14 +63,14 @@ EOF
 systemctl daemon-reload
 ~~~
 ~~~
-systemctl enable kube-control-manager
+systemctl enable kube-controller-manager
 ~~~
 ~~~
-systemctl start kube-control-manager
+systemctl start kube-controller-manager
 ~~~
 ~~~
-systemctl status kube-control-manager
+systemctl status kube-controller-manager
 ~~~
 ~~~
-journalctl -u kube-control-manager.service --no-pager --reverse | head -n 20
+journalctl -u kube-controller-manager.service --no-pager --reverse | head -n 20
 ~~~
