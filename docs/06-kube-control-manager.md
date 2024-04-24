@@ -1,5 +1,6 @@
-# 
+# Настройки кубе контроллер манагера
 
+1. Нам нужно создать кубе конфиг файл
 ~~~
 {
   kubectl config set-cluster kubernetes-the-hard-way \
@@ -22,15 +23,16 @@
   kubectl config use-context default --kubeconfig=kube-controller-manager.kubeconfig
 }
 ~~~
-
+После того как мы его создадим нам нужно переместить на все сервера node-1, node-2 и node-3
 ~~~
 scp kube-controller-manager.kubeconfig node-1:~/
 ~~~
-
+Теперь нам надо залогиниться на сервер node-1, остальные все действие нужно пофторить да остальных серверах
+Копирум наш кубе конфиг в директорию библиотеке кубернетес
 ~~~
 cp kube-controller-manager.kubeconfig /var/lib/kubernetes/
 ~~~
-
+Создаем сервисный файл для управление
 ~~~
 cat << EOF | sudo tee /etc/systemd/system/kube-controller-manager.service
 [Unit]
@@ -58,19 +60,23 @@ RestartSec=5
 WantedBy=multi-user.target
 EOF
 ~~~
-
+Перезапускаем демон
 ~~~
 systemctl daemon-reload
 ~~~
+Добавляем наш сервис в автозапуск
 ~~~
 systemctl enable kube-controller-manager
 ~~~
+Стартуем сервис
 ~~~
 systemctl start kube-controller-manager
 ~~~
+Проверяем статус
 ~~~
 systemctl status kube-controller-manager
 ~~~
+Если будут ошибки удобно проверяем и перенастроиваем
 ~~~
 journalctl -u kube-controller-manager.service --no-pager --reverse | head -n 20
 ~~~
