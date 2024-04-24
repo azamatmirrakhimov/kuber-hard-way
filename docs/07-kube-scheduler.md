@@ -91,4 +91,26 @@ RestartSec=5
 WantedBy=multi-user.target
 EOF
 ~~~
+~~~
+Перезапускаем демон
+~~~
+systemctl daemon-reload
+~~~
+Добавляем наш сервис в автозапуск
+~~~
+systemctl enable kube-scheduler
+~~~
+Стартуем сервис
+~~~
+systemctl start kube-scheduler
+~~~
+Проверяем статус
+~~~
+systemctl status kube-scheduler
+~~~
+Если будут ошибки удобно проверяем и перенастроиваем
+~~~
+journalctl -u kube-scheduler.service --no-pager --reverse | head -n 20
+~~~
 
+Далее: [Создание кластера Kube Scheduler](07-kube-scheduler.md)
