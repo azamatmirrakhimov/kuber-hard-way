@@ -91,7 +91,7 @@ RestartSec=5
 WantedBy=multi-user.target
 EOF
 ~~~
-~~~
+
 Перезапускаем демон
 ~~~
 systemctl daemon-reload
