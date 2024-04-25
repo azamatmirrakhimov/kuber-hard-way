@@ -140,4 +140,21 @@ LimitCORE=infinity
 WantedBy=multi-user.target
 EOF
 ~~~
+Перезапускаем damon
+~~~
+systemctl daemon-reload
+~~~
+Добовляем сервис в автозапуск
+~~~
+systemctl enable containerd
+~~~
+Стартуем сервис
+~~~
+systemctl start containerd
+~~~
+Проверяем сервис
+~~~
+systemctl status containerd
+~~~
+
 
