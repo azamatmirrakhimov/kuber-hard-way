@@ -1,8 +1,9 @@
-# You can set up a basic nginx proxy for the healthz endpoint by first installing nginx":
+# Настройка nginx для healthz check
+Установка nginx  сервера
 ~~~
 sudo apt-get install -y nginx-full
 ~~~
-# Create an nginx configuration for the health check proxy:
+### Создание конфигурации nginx для проверки health check proxy:
 ~~~
 cat > kubernetes.default.svc.cluster.local << EOF
 server {
@@ -16,28 +17,30 @@ server {
 }
 EOF
 ~~~
-# Set up the proxy configuration so that it is loaded by nginx:
+### Переместим наши настройки в директорию nginx что бы он использовал наши настройки:
 ~~~
 sudo mv kubernetes.default.svc.cluster.local /etc/nginx/sites-available/kubernetes.default.svc.cluster.local
 ~~~
 ~~~
 sudo ln -s /etc/nginx/sites-available/kubernetes.default.svc.cluster.local /etc/nginx/sites-enabled/
 ~~~
+Перезапускаем nginx
 ~~~
 sudo systemctl restart nginx
 ~~~
+Добавляем nginx  в автозапуск
 ~~~
 sudo systemctl enable nginx
 ~~~
-# You can verify that everything is working like so:
+### На этом мы все настроили проверяем:
 ~~~
 curl -H "Host: kubernetes.default.svc.cluster.local" -i http://127.0.0.1/healthz
 ~~~
-### You should receive a 200 OK response.
+### В ответе должны получить 200 OK.
 
-# RBAC for Kubelet Authorization
+# Настройка RBAC for Kubelet Authorization 
 
-# Create a role with the necessary permissions:
+# Содадим роль с необходиммами провами:
 ~~~
 cat << EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
 apiVersion: rbac.authorization.k8s.io/v1
@@ -61,7 +64,7 @@ rules:
       - "*"
 EOF
 ~~~
-# Bind the role to the kubernetes user:
+# Передаем прова:
 ~~~
 cat << EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
 apiVersion: rbac.authorization.k8s.io/v1
