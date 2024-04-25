@@ -94,5 +94,22 @@ mv 10-bridge.conf 99-loopback.conf /etc/cni/net.d/
 ~~~
 ### Приступаем к настройке самого сервиса `containerd`
 
-Для этого нам надо создать `containerd-config.toml` и серфисный файл `containerd.service`/
-Создаем `containerd-config.toml`
+Для этого нам надо создать `containerd-config.toml` и серфисный файл `containerd.service`
+### Создаем `containerd-config.toml`
+~~~
+cat << EOF | sudo tee /etc/containerd/config.toml
+version = 2
+
+[plugins."io.containerd.grpc.v1.cri"]
+  [plugins."io.containerd.grpc.v1.cri".containerd]
+    snapshotter = "overlayfs"
+    default_runtime_name = "runc"
+  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+    runtime_type = "io.containerd.runc.v2"
+  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+    SystemdCgroup = true
+[plugins."io.containerd.grpc.v1.cri".cni]
+  bin_dir = "/opt/cni/bin"
+  conf_dir = "/etc/cni/net.d"
+EOF
+~~~
