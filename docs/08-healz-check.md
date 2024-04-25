@@ -40,7 +40,7 @@ curl -H "Host: kubernetes.default.svc.cluster.local" -i http://127.0.0.1/healthz
 
 # Настройка RBAC for Kubelet Authorization 
 
-# Содадим роль с необходиммами провами:
+### Содадим роль с необходиммами провами:
 ~~~
 cat << EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
 apiVersion: rbac.authorization.k8s.io/v1
@@ -64,7 +64,7 @@ rules:
       - "*"
 EOF
 ~~~
-# Передаем прова:
+### Передаем прова:
 ~~~
 cat << EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
 apiVersion: rbac.authorization.k8s.io/v1
