@@ -95,6 +95,9 @@ mv 10-bridge.conf 99-loopback.conf /etc/cni/net.d/
 ### Приступаем к настройке самого сервиса `containerd`
 
 Для этого нам надо создать `containerd-config.toml` и сервисный файл `containerd.service`
+~~~
+mkdir -p /etc/containerd/
+~~~
 ### Создаем `containerd-config.toml`
 ~~~
 cat << EOF | sudo tee /etc/containerd/config.toml
