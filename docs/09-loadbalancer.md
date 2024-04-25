@@ -54,4 +54,4 @@ curl -k https://localhost:6443/version
 ~~~
 ### You should get back some json containing version information for your Kubernetes cluster.
 
-Далее: [LoadBalancer](10-containerd.md)
+Далее: [Worker containerd](10-containerd.md)
