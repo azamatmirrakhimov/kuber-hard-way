@@ -51,9 +51,9 @@ mkdir -p \
   mv crictl kubectl kube-proxy kubelet runc /usr/local/bin/
   mv containerd/bin/* /bin/
 }
-~~
+~~~
 
-Настроиваем `bridge` сетевое окружение:
+# Настроиваем `bridge` сетевое окружение:
 Создаем файл
 ~~~
 vi 10-bridge.conf
