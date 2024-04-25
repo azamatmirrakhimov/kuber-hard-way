@@ -1,21 +1,25 @@
-# Here are the commands you can use to set up the nginx load balancer. Run these on the server that you have designated as your load balancer server:
+# Настройка `server` нам нужно установить `nginx` и настроить конфигурацилнный файл
+Установка nginx
 ~~~
 sudo apt-get install -y nginx-full
 ~~~
+Добавляем nginx в автозапуск
 ~~~
 sudo systemctl enable nginx
 ~~~
+Создаем конфиг файл
 ~~~
 sudo mkdir -p /etc/nginx/tcpconf.d
 ~~~
+Теперь нам надо отредоктировать конфиг файл nginx для того что бы он мог использовать наш созданный конфиг файл
 ~~~
 sudo vi /etc/nginx/nginx.conf
 ~~~
-# Add the following to the end of nginx.conf:
+### Добавляем данную запусь в конец файла, это не обязательно но лучше добавить в конец что бы была возможность вернуть
 ~~~
 include /etc/nginx/tcpconf.d/*;
 ~~~
-# Set up some environment variables for the lead balancer config file:
+### Создаем переменные
 ~~~
 CONTROLLER1_IP=172.31.18.85
 ~~~
@@ -25,7 +29,7 @@ CONTROLLER2_IP=172.31.24.235
 ~~~
 CONTROLLER3_IP=172.31.17.121
 ~~~
-# Create the load balancer nginx config file:
+### Создаем конфиг файл 
 ~~~
 cat << EOF | sudo tee /etc/nginx/tcpconf.d/kubernetes.conf
 stream {
@@ -44,14 +48,14 @@ stream {
 EOF
 ~~~
 
-# Reload the nginx configuration:
+### Перезапускаем nginx
 ~~~
 sudo nginx -s reload
 ~~~
-# You can verify that the load balancer is working like so:
+### Проверяем
 ~~~
 curl -k https://localhost:6443/version
 ~~~
-### You should get back some json containing version information for your Kubernetes cluster.
+### В итоге мы должны получить ответ в формате json информацию о кластере kuber
 
 Далее: [Worker containerd](10-containerd.md)
