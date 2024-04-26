@@ -100,7 +100,7 @@ systemctl start kube-proxy
 sudo systemctl status kube-proxy
 ~~~
 # Finally, verify that both workers have registered themselves with the cluster. Log in to one of your control nodes and run this:
-
+~~~
 kubectl get nodes
-
+~~~
 # You should see the hostnames for both worker nodes listed. Note that it is expected for them to be in the NotReady state at this point.
