@@ -191,8 +191,6 @@ ExecStart=/usr/local/bin/kubelet \\
   --kubeconfig=/var/lib/kubelet/kubeconfig \\
   --register-node=true \\
   --v=2 
-  --hostname-override=${HOSTNAME} \\
-  --allow-privileged=true
 Restart=on-failure
 RestartSec=5
 
