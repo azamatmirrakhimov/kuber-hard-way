@@ -153,7 +153,7 @@ mv ${HOSTNAME}-key.pem ${HOSTNAME}.pem /var/lib/kubelet/
 Копируем `kubeconfig`  директорию `/var/lib/kubelet/kubeconfig`
 ~~~
 mv ${HOSTNAME}.kubeconfig /var/lib/kubelet/kubeconfig
-~~
+~~~
 Создаем `yaml` конфиг файл
 ~~~
 cat << EOF | sudo tee /var/lib/kubelet/kubelet-config.yaml
