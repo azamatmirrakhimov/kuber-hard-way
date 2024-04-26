@@ -41,7 +41,7 @@ admin-csr.json | cfssljson -bare admin
 
 }
 ~~~
-
+Теперь нам надо создать новый кластер для этого нам нужен наш сертификат `ca.pem` название кластера будет `kubernetes-the-hard-way`
 ~~~
 kubectl config set-cluster kubernetes-the-hard-way \
   --certificate-authority=ca.pem \
