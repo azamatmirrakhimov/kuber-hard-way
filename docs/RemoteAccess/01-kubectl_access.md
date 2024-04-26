@@ -1,1 +1,94 @@
+# Admin Client certificate:
 
+{
+
+cat > admin-csr.json << EOF
+{
+  "CN": "admin",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "US",
+      "L": "Portland",
+      "O": "system:masters",
+      "OU": "Kubernetes The Hard Way",
+      "ST": "Oregon"
+    }
+  ]
+}
+EOF
+
+cfssl gencert \
+  -ca=ca.pem \
+  -ca-key=ca-key.pem \
+  -config=ca-config.json \
+  -profile=kubernetes \
+admin-csr.json | cfssljson -bare admin
+
+}
+
+~~~
+ssh -L 6443:localhost:6443 root@server
+~~~
+
+~~~
+kubectl config set-cluster kubernetes-the-hard-way \
+  --certificate-authority=ca.pem \
+  --embed-certs=true \
+  --server=https://localhost:6443
+~~~
+Output
+~~~
+Cluster "kubernetes-the-hard-way" set.
+~~~
+
+~~~
+kubectl config set-credentials admin \
+  --client-certificate=admin.pem \
+  --client-key=admin-key.pem
+
+kubectl config set-context kubernetes-the-hard-way \
+  --cluster=kubernetes-the-hard-way \
+  --user=admin
+~~~
+Output
+~~~
+User "admin" set.
+~~~
+
+~~~
+kubectl config use-context kubernetes-the-hard-way
+~~~
+Output
+~~~
+Switched to context "kubernetes-the-hard-way".
+~~~
+~~~
+kubectl get pods
+~~~
+Output
+~~~
+error: the server doesn't have a resource type "version"
+~~~
+~~~
+kubectl get nodes
+~~~
+Output
+~~~
+NAME     STATUS   ROLES    AGE     VERSION
+work-1   Ready    <none>   4h57m   v1.28.3
+work-2   Ready    <none>   5h12m   v1.28.3
+work-3   Ready    <none>   8h      v1.28.3
+~~~
+~~~
+kubectl version
+~~~
+Output
+~~~
+Client Version: v1.28.3
+Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
+Server Version: v1.28.3
+~~~
