@@ -222,4 +222,3 @@ journalctl -u kubelet.service --no-pager --reverse | head -n 20
 ~~~
 
 Далее
-~~~
