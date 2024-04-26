@@ -104,3 +104,5 @@ sudo systemctl status kube-proxy
 kubectl get nodes
 ~~~
 # You should see the hostnames for both worker nodes listed. Note that it is expected for them to be in the NotReady state at this point.
+
+Далее: [Настройка удаленного доступа](RemoteAccess/01-kubectl_access.md)
