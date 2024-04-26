@@ -26,3 +26,13 @@ ssh root@server <<EOF
   ip route add ${WORKER3_SUBNET} via ${WORKER3_IP}
 EOF
 ~~~
+
+~~~
+ssh root@node-1 <<EOF
+  ip route add ${NODE_2_SUBNET} via ${NODE_2_IP}
+  ip route add ${NODE_3_SUBNET} via ${NODE_3_IP}
+  ip route add ${WORKER1_SUBNET} via ${WORKER1_IP}
+  ip route add ${WORKER2_SUBNET} via ${WORKER2_IP}
+  ip route add ${WORKER3_SUBNET} via ${WORKER3_IP}
+EOF
+~~~
