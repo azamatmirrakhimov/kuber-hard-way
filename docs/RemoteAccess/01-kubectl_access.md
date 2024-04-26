@@ -62,7 +62,7 @@ kubectl config set-context kubernetes-the-hard-way \
   --cluster=kubernetes-the-hard-way \
   --user=admin
 ~~~
-Output
+Ответ
 ~~~
 User "admin" set.
 ~~~
@@ -70,21 +70,21 @@ User "admin" set.
 ~~~
 kubectl config use-context kubernetes-the-hard-way
 ~~~
-Output
+Ответ
 ~~~
 Switched to context "kubernetes-the-hard-way".
 ~~~
 ~~~
 kubectl get pods
 ~~~
-Output
+Ответ
 ~~~
 error: the server doesn't have a resource type "version"
 ~~~
 ~~~
 kubectl get nodes
 ~~~
-Output
+Ответ
 ~~~
 NAME     STATUS   ROLES    AGE     VERSION
 work-1   Ready    <none>   4h57m   v1.28.3
@@ -94,7 +94,7 @@ work-3   Ready    <none>   8h      v1.28.3
 ~~~
 kubectl version
 ~~~
-Output
+Ответ
 ~~~
 Client Version: v1.28.3
 Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
