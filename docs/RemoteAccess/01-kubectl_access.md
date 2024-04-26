@@ -48,11 +48,11 @@ kubectl config set-cluster kubernetes-the-hard-way \
   --embed-certs=true \
   --server=https://localhost:6443
 ~~~
-Output
+Ответ
 ~~~
 Cluster "kubernetes-the-hard-way" set.
 ~~~
-
+Теперь мы устанавливаем наши учетные данные то есть пользователя `admin` и его сертификаты `admin.pem` `admin-key.pem`
 ~~~
 kubectl config set-credentials admin \
   --client-certificate=admin.pem \
