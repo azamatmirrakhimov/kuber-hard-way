@@ -157,4 +157,4 @@ systemctl start containerd
 systemctl status containerd
 ~~~
 
-
+Далее: [Worker kublet](10-kublet.md)
